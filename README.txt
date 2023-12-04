@@ -1,1 +1,2 @@
-
+To start:
+   gradle build
