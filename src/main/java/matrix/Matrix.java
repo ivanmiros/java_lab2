@@ -1,12 +1,13 @@
 package matrix;
 
+import java.util.Arrays;
 
 public class Matrix {
  
     private double[][] _data = null;
     private int _x=0, _y=0;
 
-    // Step 1 ----------------
+    // Step 1,2 ----------------
 
     public Matrix(int x, int y) {
         this._x = x;
@@ -27,11 +28,11 @@ public class Matrix {
         _data = new double [this._x][this._y];
     }    
 
-    public int GetSize() {
+    public int getSize() {
         return this._x * this._y;
     }
 
-    public String Druc() {
+    public String getDruc() {
         String output = "";
         if (this._x == 0 || this._y == 0) {
             output = "[]\n";
@@ -47,7 +48,7 @@ public class Matrix {
         return output;
     }
 
-    // Step 2 ----------------
+    // Step 3 ----------------
 
     public void fillCell (int x, int y, double val) {
         if (x <=0 || x > this._x || y <= 0 || y > this._y ) {
@@ -75,7 +76,7 @@ public class Matrix {
     }    
 
 
-    // Step 3 ----------------
+    // Step 4 ----------------
     
     public double getCell (int x, int y) {
         if (x <=0 || x > this._x || y <= 0 || y > this._y ) {
@@ -100,18 +101,31 @@ public class Matrix {
         return y_data;
     }
 
-    // Step 4 ----------------
+    // Step 5 ----------------
 
-    public String Rozm() {
+    public String getRozm() {
         return String.valueOf(_x) + " x " + String.valueOf(_y) + "\n";
     }
+
+    // Step 6 ----------------
+
+    public int getHash() {
+        return Arrays.deepHashCode(this._data);
+    }
+
+    public boolean isEqual(Matrix m) {
+        if ( this == m || this.getHash() == m.getHash()) {
+            return true;
+        }
+        return false;
+    }    
 
 
     public static void main(String args[]){
         Matrix m = new Matrix(4, 2);
         m.fillY(1, 2.1, 2.2);
         //System.out.println("Matrix size: "+ m.GetSize());
-        System.out.println(m.Rozm());
+        System.out.println(m.getHash());
     }
 
 };
