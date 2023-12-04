@@ -6,6 +6,8 @@ public class Matrix {
     private double[][] _data = null;
     private int _x=0, _y=0;
 
+    // Step 1 ----------------
+
     public Matrix(int x, int y) {
         this._x = x;
         this._y = y;
@@ -45,6 +47,8 @@ public class Matrix {
         return output;
     }
 
+    // Step 2 ----------------
+
     public void fillCell (int x, int y, double val) {
         if (x <=0 || x > this._x || y <= 0 || y > this._y ) {
             throw new IllegalArgumentException("Row or Column numbers are wrong for this Matrix");
@@ -69,6 +73,33 @@ public class Matrix {
             this.fillCell(x, i+1, val[i]);
         }
     }    
+
+
+    // Step 3 ----------------
+    
+    public double getCell (int x, int y) {
+        if (x <=0 || x > this._x || y <= 0 || y > this._y ) {
+            throw new IllegalArgumentException("Row or Column numbers are wrong for this Matrix");
+        }
+        return this._data[x-1][y-1];
+    } 
+
+    public double[] getX (int y) {
+        double[] x_data = new double[this._x];
+        for (int i = 0; i < this._x; i++){
+            x_data[i] = this.getCell(i+1, y);
+        }
+        return x_data;
+    }
+
+    public double[] getY (int x) {
+        double[] y_data = new double[this._y];
+        for (int i = 0; i < this._y; i++){
+            y_data[i] = this.getCell(x, i+1);
+        }
+        return y_data;
+    }
+
 
     public static void main(String args[]){
         Matrix m = new Matrix(4, 2);
