@@ -100,12 +100,18 @@ public class Matrix {
         return y_data;
     }
 
+    // Step 4 ----------------
+
+    public String Rozm() {
+        return String.valueOf(_x) + " x " + String.valueOf(_y) + "\n";
+    }
+
 
     public static void main(String args[]){
         Matrix m = new Matrix(4, 2);
         m.fillY(1, 2.1, 2.2);
         //System.out.println("Matrix size: "+ m.GetSize());
-        System.out.println(m.Druc());
+        System.out.println(m.Rozm());
     }
 
 };

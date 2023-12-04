@@ -95,6 +95,14 @@ public class matrixTest {
         double[] reference = new double [] {2.1, 0.0}; 
         assertArrayEquals(reference,m1.getY(2));
     } 
-    
+
+    // Step 4 ----------------
+
+    @Test
+    public void step4Rozm() {
+        Matrix m1 = new Matrix(4,2);
+        m1.fillY(1, 2.1, 2.2);
+        assertEquals("4 x 2\n",m1.Rozm());
+    } 
     
 }
