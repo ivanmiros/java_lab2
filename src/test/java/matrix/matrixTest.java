@@ -11,22 +11,34 @@ public class matrixTest {
    
 
     @Test
-    public void EmptyMatrix() {
+    public void emptyMatrix() {
         Matrix m = new Matrix();
         assertEquals(0, m.GetSize());
     }    
 
     @Test
-    public void CreateMatrix() {
+    public void createMatrix() {
         Matrix m = new Matrix(5,3);
         assertEquals(15, m.GetSize());
     }   
     
     @Test
-    public void CopyMatrix() {
+    public void copyMatrix() {
         Matrix m1 = new Matrix(5,3);
         Matrix m2 = new Matrix(m1);
         assertEquals(15, m2.GetSize());
     }    
     
+    @Test
+    public void checkDrucEmpty() {
+        Matrix m1 = new Matrix(0,0);
+        assertEquals("[]\n", m1.Druc());
+    }  
+
+    @Test
+    public void checkDruc2x2() {
+        Matrix m1 = new Matrix(2,2);
+        assertEquals("[ 0 0 ]\n[ 0 0 ]\n", m1.Druc());
+    }  
+
 }

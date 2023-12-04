@@ -1,11 +1,11 @@
 To start:
    `gradle build`
 
-Test results in Html:
-   build - reports - test -test - index.html
+Test results:
+   symbolic link `status_tests.html`
 
 Coverage report:
    `gradle jacocoTestReport`
 
-Jacoco coverage in Html:
-   build - customJacocoReportDir - test - html - index.html   
+Jacoco coverage results:
+   ymbolic link `status_coverage.html`  

@@ -29,30 +29,31 @@ public class Matrix {
         return this._x * this._y;
     }
 
-    public void Druc() {
+    public String Druc() {
+        String output = "";
         if (this._x == 0 || this._y == 0) {
-            System.out.println("[]");
-            return;
+            output = "[]\n";
+            return output;
         }
 
         
         for (int j=0; j<this._y; j++) {
-            System.out.print("[ ");
+            output += "[ ";
             for (int i=0; i<this._x; i++) {
-                System.out.print(this._data[i][j]+" ");
+                output += this._data[i][j]+" ";
             }
-            System.out.println("]");
+            output +="]\n";
         }
-    
 
+        return output;
     }
 
     
 
     public static void main(String args[]){
-        Matrix m = new Matrix(5, 3);
-        System.out.println("Matrix size: "+ m.GetSize());
-        m.Druc();
+        Matrix m = new Matrix(2, 2);
+        //System.out.println("Matrix size: "+ m.GetSize());
+        System.out.println(m.Druc());
     }
 
 };
