@@ -246,9 +246,43 @@ public class Matrix {
         return this;
     }    
     
+    // Step 15,16 ----------------    
+
+    public Matrix modifyUpperTriang() {
+        if (this._x != this._y) {
+            throw new IllegalArgumentException("Matrix not square. Can't change to upper triangular.");
+        }
+        if (this._x == 0 || this._y == 0) {
+            throw new IllegalArgumentException("Can't change to upper triangular for zerro matrix.");
+        }
+
+        for (int i=0; i<this._x; i++) 
+            for (int j=0; j<this._y; j++) 
+                if ( i < j ) this._data[i][j] = 0;
+        return this;
+    } 
+    
+    public Matrix modifyLowerTriang() {
+        if (this._x != this._y) {
+            throw new IllegalArgumentException("Matrix not square. Can't change to upper triangular.");
+        }
+        if (this._x == 0 || this._y == 0) {
+            throw new IllegalArgumentException("Can't change to upper triangular for zerro matrix.");
+        }
+
+        for (int i=0; i<this._x; i++) 
+            for (int j=0; j<this._y; j++) 
+                if ( i > j ) this._data[i][j] = 0;
+        return this;
+    }     
+    
     public static void main(String args[]){
-        Matrix m1 = new Matrix();
-        m1.createRandomY(5, 1, 20);
+        Matrix m1 = new Matrix(4,4);
+        m1.fillX(1, 1,2,3,4);
+        m1.fillX(2, 1,2,3,4);        
+        m1.fillX(3, 1,2,3,4); 
+        m1.fillX(4, 1,2,3,4); 
+        m1.modifyLowerTriang();              
         System.out.println(m1.getDruc());        
     }
 
