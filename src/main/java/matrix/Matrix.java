@@ -168,21 +168,33 @@ public class Matrix {
         if (this.getXSize() != m_other.getYSize()) {
             throw new IllegalArgumentException("Can't multiply Matrices A*B where A(X) != B(Y)");
         }
-        Matrix m_plus = new Matrix(m_other.getXSize(), this.getYSize()); 
+        Matrix m_mul = new Matrix(m_other.getXSize(), this.getYSize()); 
         // Loop B(X)=C(X)
         for (int i=0; i<m_other.getXSize(); i++) 
             // Loop A(Y)=C(Y)
             for (int j=0; j<this.getYSize(); j++) 
                 // Loop A(X)/B(Y)
                 for (int ii=0; ii<this.getXSize(); ii++) 
-                    m_plus.addCell(i+1, j+1, this.getCell(ii+1, j+1) * m_other.getCell(i+1, ii+1));
-        return m_plus;
+                    m_mul.addCell(i+1, j+1, this.getCell(ii+1, j+1) * m_other.getCell(i+1, ii+1));
+        return m_mul;
     }
 
-    
+    // Step 10 ----------------    
+
+    public Matrix transponse() {
+        Matrix m_trans = new Matrix(this.getYSize(), this.getXSize()); 
+        for (int i=0; i<this.getYSize(); i++) 
+            for (int j=0; j<this.getXSize(); j++) 
+                m_trans.addCell(i+1, j+1, this.getCell(j+1, i+1));
+        return m_trans;
+    }
+
     public static void main(String args[]){
         Matrix m1 = new Matrix(4,2);
+        m1.fillX(1, 1, 2, 3, 4);        
+        Matrix m2 = m1.transponse();
         System.out.println(m1.getDruc());
+        System.out.println(m2.getDruc());        
     }
 
 };
