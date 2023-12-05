@@ -185,16 +185,27 @@ public class Matrix {
         Matrix m_trans = new Matrix(this.getYSize(), this.getXSize()); 
         for (int i=0; i<this.getYSize(); i++) 
             for (int j=0; j<this.getXSize(); j++) 
-                m_trans.addCell(i+1, j+1, this.getCell(j+1, i+1));
+                m_trans.fillCell(i+1, j+1, this.getCell(j+1, i+1));
         return m_trans;
     }
 
+    // Step 11 ----------------    
+
+    public Matrix (double... vec) {
+        if (vec.length == 0) {
+            throw new IllegalArgumentException("Can't create zerro matrix");
+        }
+        this._x = vec.length;
+        this._y = vec.length;        
+        this._data = new double [this._x][this._y];
+        for (int i=0; i<vec.length; i++) 
+            for (int j=0; j<vec.length; j++) 
+                if ( i == j ) this._data[i][j] = vec[i];
+    }    
+
     public static void main(String args[]){
-        Matrix m1 = new Matrix(4,2);
-        m1.fillX(1, 1, 2, 3, 4);        
-        Matrix m2 = m1.transponse();
-        System.out.println(m1.getDruc());
-        System.out.println(m2.getDruc());        
+        Matrix m1 = new Matrix(0.0, 1.1, 3.0);
+        System.out.println(m1.getDruc());        
     }
 
 };

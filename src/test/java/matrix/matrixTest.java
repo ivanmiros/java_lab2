@@ -186,13 +186,20 @@ public class matrixTest {
         assertEquals("[ 34.0 40.0 46.0 ]\n[ 12.0 15.0 18.0 ]\n",m3.getDruc());
     }  
     
-    // Step 9 ---------------- 
+    // Step 10 ---------------- 
     @Test
     public void step10Transpose() {
         Matrix m1 = new Matrix(4,2);
         m1.fillX(1, 1, 2, 3, 4);
         Matrix m2 = m1.transponse();
         assertEquals("[ 1.0 0.0 ]\n[ 2.0 0.0 ]\n[ 3.0 0.0 ]\n[ 4.0 0.0 ]\n",m2.getDruc());
+    } 
+
+    // Step 11 ----------------
+    @Test
+    public void step11Diagonal() {
+        Matrix m1 = new Matrix(1.1, 2.0, 3.0);
+        assertEquals("[ 1.1 0.0 0.0 ]\n[ 0.0 2.0 0.0 ]\n[ 0.0 0.0 3.0 ]\n",m1.getDruc());
     } 
 
 
