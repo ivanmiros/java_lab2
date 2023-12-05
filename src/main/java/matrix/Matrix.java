@@ -153,14 +153,36 @@ public class Matrix {
         return m_mulScalar;
     }    
 
+    // Step 9 ----------------    
+
+    public void addCell (int x, int y, double val) {
+        if (x <=0 || x > this._x || y <= 0 || y > this._y ) {
+            throw new IllegalArgumentException("Row or Column numbers are wrong for this Matrix");
+        }
+        this._data[x-1][y-1] += val;
+    }  
+
+    public Matrix mul(Matrix m_other) {
+        // Rule: number of columns (X) A = rows (Y) B    A*B=C
+        // Result: C has columns (X) from B (X), rows (Y) from A (Y)
+        if (this.getXSize() != m_other.getYSize()) {
+            throw new IllegalArgumentException("Can't multiply Matrices A*B where A(X) != B(Y)");
+        }
+        Matrix m_plus = new Matrix(m_other.getXSize(), this.getYSize()); 
+        // Loop B(X)=C(X)
+        for (int i=0; i<m_other.getXSize(); i++) 
+            // Loop A(Y)=C(Y)
+            for (int j=0; j<this.getYSize(); j++) 
+                // Loop A(X)/B(Y)
+                for (int ii=0; ii<this.getXSize(); ii++) 
+                    m_plus.addCell(i+1, j+1, this.getCell(ii+1, j+1) * m_other.getCell(i+1, ii+1));
+        return m_plus;
+    }
+
+    
     public static void main(String args[]){
-        Matrix m1 = new Matrix(4, 2);
-        Matrix m2 = new Matrix(m1);
-        m1.fillY(1, 2.1, 2.2);
-        Matrix m3 = m1.plus(m2);
+        Matrix m1 = new Matrix(4,2);
         System.out.println(m1.getDruc());
-        System.out.println(m2.getDruc());
-        System.out.println(m3.getDruc());
     }
 
 };

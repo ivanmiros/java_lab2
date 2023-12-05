@@ -171,13 +171,20 @@ public class matrixTest {
         assertEquals("[ 1.1 0.0 3.1 0.0 ]\n[ 1.2 0.0 3.2 0.0 ]\n",m3.getDruc());
     }   
 
+    // Step 9 ---------------- 
     @Test
-    public void step8MulScalar() {
-        Matrix m1 = new Matrix(4, 2);
-        m1.fillY(1, 2.2, 1.2); 
-        Matrix m2 = m1.mulScalar(2.5);
-        assertEquals("[ 5.5 0.0 0.0 0.0 ]\n[ 3.0 0.0 0.0 0.0 ]\n",m2.getDruc());
+    public void step9MulScalar() {
+        Matrix m1 = new Matrix(4,2);
+        Matrix m2 = new Matrix(3,4);
+        m1.fillX(1, 1, 2, 3, 4);
+        m1.fillX(2, 1, 1, 1, 0);
+        m2.fillX(1, 1, 2, 3);    
+        m2.fillX(2, 4, 5, 6);          
+        m2.fillX(3, 7, 8, 9);    
+        m2.fillX(4, 1, 1, 1);          
+        Matrix m3 = m1.mul(m2);
+        assertEquals("[ 34.0 40.0 46.0 ]\n[ 12.0 15.0 18.0 ]\n",m3.getDruc());
     }  
     
-    
+
 }
