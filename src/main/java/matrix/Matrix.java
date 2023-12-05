@@ -42,7 +42,7 @@ public class Matrix {
         for (int j=0; j<this._y; j++) {
             output += "[ ";
             for (int i=0; i<this._x; i++) {
-                output += this._data[i][j]+" ";
+                output += String.format( "%.1f", this._data[i][j] )+" ";
             }
             output +="]\n";
         }
@@ -246,14 +246,18 @@ public class Matrix {
         return this;
     }    
     
-    // Step 15,16 ----------------    
+    // Step 15 ----------------    
+
+    public int getSquareSize() {
+        if (this._x != this._y || this._x == 0 || this._y == 0) {
+            return 0;
+        }
+        return this._x;
+    }
 
     public Matrix modifyUpperTriang() {
-        if (this._x != this._y) {
-            throw new IllegalArgumentException("Matrix not square. Can't change to upper triangular.");
-        }
-        if (this._x == 0 || this._y == 0) {
-            throw new IllegalArgumentException("Can't change to upper triangular for zerro matrix.");
+        if (this.getSquareSize() == 0) {
+            throw new IllegalArgumentException("Matrix not square or zerro. Can't change to upper triangular.");
         }
 
         for (int i=0; i<this._x; i++) 
@@ -263,11 +267,8 @@ public class Matrix {
     } 
     
     public Matrix modifyLowerTriang() {
-        if (this._x != this._y) {
-            throw new IllegalArgumentException("Matrix not square. Can't change to upper triangular.");
-        }
-        if (this._x == 0 || this._y == 0) {
-            throw new IllegalArgumentException("Can't change to upper triangular for zerro matrix.");
+        if (this.getSquareSize() == 0) {
+            throw new IllegalArgumentException("Matrix not square or zerro. Can't change to lower triangular.");
         }
 
         for (int i=0; i<this._x; i++) 
@@ -276,14 +277,125 @@ public class Matrix {
         return this;
     }     
     
+    // Step 16 ----------------    
+
+    public double det2(Matrix m_other) {   
+        if (m_other.getSquareSize() != 2) {
+            throw new IllegalArgumentException("Matrix should be square 2x2.");
+        } 
+        double d = 0.0;
+        d += this._data[0][0]*this._data[1][1];
+        d -= this._data[0][1]*this._data[1][0];
+        return d;
+    } 
+
+    public double det3(Matrix m_other) {   
+        if (m_other.getSquareSize() != 3) {
+            throw new IllegalArgumentException("Matrix should be square 3x3.");
+        } 
+        double d = 0.0;
+        d += this._data[0][0]*this._data[1][1]*this._data[2][2];
+        d += this._data[0][1]*this._data[1][2]*this._data[2][0];
+        d += this._data[0][2]*this._data[1][0]*this._data[2][1];  
+
+        d -= this._data[0][2]*this._data[1][1]*this._data[2][0];
+        d -= this._data[0][0]*this._data[1][2]*this._data[2][1];
+        d -= this._data[0][1]*this._data[1][0]*this._data[2][2]; 
+        return d;
+    }     
+
+    public double det() {
+        if (this.getSquareSize() == 0) {
+            throw new IllegalArgumentException("Matrix not square or zerro. Can't get determinant.");
+        }
+
+        double d = 0.0;
+
+        if (this.getSquareSize() == 2) d = det2(this);
+        if (this.getSquareSize() == 3) d = det3(this);  
+
+        if (this.getSquareSize() == 4) {
+            // Take 1st column to proceed
+            Matrix m = new Matrix(3,3);
+            m.fillX(1, this._data[1][1], this._data[2][1], this._data[3][1]);
+            m.fillX(2, this._data[1][2], this._data[2][2], this._data[3][2]);
+            m.fillX(3, this._data[1][3], this._data[2][3], this._data[3][3]);            
+            d += this._data[0][0]*m.det();
+            m.fillX(1, this._data[1][0], this._data[2][0], this._data[3][0]);
+            m.fillX(2, this._data[1][2], this._data[2][2], this._data[3][2]);
+            m.fillX(3, this._data[1][3], this._data[2][3], this._data[3][3]);            
+            d -= this._data[0][1]*m.det(); 
+            m.fillX(1, this._data[1][0], this._data[2][0], this._data[3][0]);
+            m.fillX(2, this._data[1][1], this._data[2][1], this._data[3][1]);
+            m.fillX(3, this._data[1][3], this._data[2][3], this._data[3][3]);            
+            d += this._data[0][2]*m.det();      
+            m.fillX(1, this._data[1][0], this._data[2][0], this._data[3][0]);
+            m.fillX(2, this._data[1][1], this._data[2][1], this._data[3][1]);
+            m.fillX(3, this._data[1][2], this._data[2][2], this._data[3][2]);            
+            d -= this._data[0][3]*m.det();                   
+        }
+
+        return d;
+    }
+
+    public Matrix adj2(Matrix m2) {   
+        if (m2.getSquareSize() != 2) {
+            throw new IllegalArgumentException("Matrix should be square 2x2.");
+        } 
+
+        Matrix adj = new Matrix(2,2);
+        adj.fillX(1, m2.getCell(2, 2), -m2.getCell(2, 1));
+        adj.fillX(2, -m2.getCell(1, 2), m2.getCell(2, 2));
+        return adj;
+    } 
+
+
+    public Matrix inverse() {
+        if (this.getSquareSize() > 4) {
+            throw new IllegalArgumentException("Inverse for matrices with ranfe >4 not implemented.");
+        }
+        if ( this.det() == 0.0 ) {
+            throw new IllegalArgumentException("Determinant is 0. Inverse matrix not exist");
+        }
+
+        // Matrix inverse A^-1 = adj(A) / det(A)
+
+        Matrix inv = new Matrix();
+
+        if (this.getSquareSize() == 2) {
+            inv = this.adj2(this).mulScalar(1/this.det());
+         }
+
+        return inv;    
+    }
+
+
     public static void main(String args[]){
-        Matrix m1 = new Matrix(4,4);
-        m1.fillX(1, 1,2,3,4);
-        m1.fillX(2, 1,2,3,4);        
-        m1.fillX(3, 1,2,3,4); 
-        m1.fillX(4, 1,2,3,4); 
-        m1.modifyLowerTriang();              
-        System.out.println(m1.getDruc());        
+        Matrix m2 = new Matrix(2,2);
+        m2.fillX(1, 4,7);
+        m2.fillX(2, 2,6);  
+        System.out.println(m2.det());        
+        System.out.println(m2.getDruc());     
+        
+        Matrix m2inv = m2.inverse();
+        System.out.println(m2inv.getDruc());
+
+            
+        Matrix m3 = new Matrix(3,3);
+        m3.fillX(1, 5,7,1);
+        m3.fillX(2, -4,1,0);
+        m3.fillX(3, 2,0,3);
+        System.out.println(m3.det());          
+        System.out.println(m3.getDruc());
+
+        Matrix m4 = new Matrix(4,4);
+        m4.fillX(1, 2,4,1,1);
+        m4.fillX(2, 0,2,0,0);
+        m4.fillX(3, 2,1,1,3);
+        m4.fillX(4, 4,0,2,3);        
+        System.out.println(m4.det());          
+        System.out.println(m4.getDruc()); 
+               
     }
 
 };
