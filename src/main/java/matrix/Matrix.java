@@ -9,23 +9,24 @@ public class Matrix {
 
     // Step 1,2 ----------------
 
-    public Matrix(int x, int y) {
-        this._x = x;
-        this._y = y;
-        _data = new double [this._x][this._y];
-    }
-
     public Matrix() {
         this._x = 0;
         this._y = 0;
-        _data = new double [this._x][this._y];
-    }    
+    }  
+    
+    public Matrix(int x, int y) {
+        this._x = x;
+        this._y = y;
+        this._data = new double [this._x][this._y];
+    }
 
     public Matrix(Matrix m_other) {
-        this._data = m_other._data.clone();
         this._x = m_other._x;
         this._y = m_other._y;        
-        _data = new double [this._x][this._y];
+        this._data = new double [this._x][this._y];
+        for (int i=0; i<this._x; i++) 
+            for (int j=0; j<this._y; j++) 
+                this._data[i][j] = m_other.getCell(i+1, j+1);
     }    
 
     public int getSize() {
@@ -120,12 +121,22 @@ public class Matrix {
         return false;
     }    
 
+    // Step 7 ----------------    
+
+    public int getXSize () {
+        return this._x;
+    }
+
+    public int getYSize () {
+        return this._y;
+    }    
 
     public static void main(String args[]){
         Matrix m = new Matrix(4, 2);
         m.fillY(1, 2.1, 2.2);
-        //System.out.println("Matrix size: "+ m.GetSize());
-        System.out.println(m.getHash());
+        System.out.println(m.getDruc());
+        IMatrix im = new IMatrix(m);
+        System.out.println(im.getDruc());
     }
 
 };
