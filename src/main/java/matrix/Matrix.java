@@ -218,9 +218,37 @@ public class Matrix {
  
     }   
     
+    // Step 13,14 ----------------    
+
+    public Matrix createRandomX(int x_size, int from, int to) {
+        if (x_size == 0) {
+            throw new IllegalArgumentException("Can't create zerro matrix");
+        }
+        this._x = x_size;
+        this._y = 1;
+        this._data = new double [this._x][this._y];
+        for (int i=0; i<x_size; i++) 
+            if (from < to) this._data[i][0] = Math.random()*(to-from)+from;
+                else this._data[i][0] = Math.random()*(from-to)+to;
+        return this;
+    }     
+    
+    public Matrix createRandomY(int y_size, int from, int to) {
+        if (y_size == 0) {
+            throw new IllegalArgumentException("Can't create zerro matrix");
+        }
+        this._x = 1;
+        this._y = y_size;
+        this._data = new double [this._x][this._y];
+        for (int j=0; j<y_size; j++) 
+            if (from < to) this._data[0][j] = Math.random()*(to-from)+from;
+                else this._data[0][j] = Math.random()*(from-to)+to;
+        return this;
+    }    
     
     public static void main(String args[]){
-        Matrix m1 = new Matrix(3);
+        Matrix m1 = new Matrix();
+        m1.createRandomY(5, 1, 20);
         System.out.println(m1.getDruc());        
     }
 
