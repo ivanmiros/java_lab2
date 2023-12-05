@@ -203,8 +203,24 @@ public class Matrix {
                 if ( i == j ) this._data[i][j] = vec[i];
     }    
 
+    // Step 12 ----------------    
+
+    public Matrix (int m_rozmirn) {
+        if (m_rozmirn == 0) {
+            throw new IllegalArgumentException("Can't create zerro matrix");
+        }
+        this._x = m_rozmirn;
+        this._y = m_rozmirn;         
+        this._data = new double [this._x][this._y];
+        for (int i=0; i<m_rozmirn; i++) 
+            for (int j=0; j<m_rozmirn; j++) 
+                if ( i == j ) this._data[i][j] = 1.0;
+ 
+    }   
+    
+    
     public static void main(String args[]){
-        Matrix m1 = new Matrix(0.0, 1.1, 3.0);
+        Matrix m1 = new Matrix(3);
         System.out.println(m1.getDruc());        
     }
 

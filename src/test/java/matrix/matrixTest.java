@@ -202,6 +202,12 @@ public class matrixTest {
         assertEquals("[ 1.1 0.0 0.0 ]\n[ 0.0 2.0 0.0 ]\n[ 0.0 0.0 3.0 ]\n",m1.getDruc());
     } 
 
+    // Step 12 ----------------
+    @Test
+    public void step12Unitar() {
+        Matrix m1 = new Matrix(3);
+        assertEquals("[ 1.0 0.0 0.0 ]\n[ 0.0 1.0 0.0 ]\n[ 0.0 0.0 1.0 ]\n",m1.getDruc());
+    }     
 
 }
 
