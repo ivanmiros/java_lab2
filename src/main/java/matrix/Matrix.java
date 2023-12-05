@@ -131,12 +131,36 @@ public class Matrix {
         return this._y;
     }    
 
+
+    // Step 8 ----------------    
+
+    public Matrix plus(Matrix m_other) {
+        if (!this.getRozm().equals(m_other.getRozm())) {
+            throw new IllegalArgumentException("Can't add Matrices with differ sizes");
+        }
+        Matrix m_plus = new Matrix(this._x, this._y); 
+        for (int i=0; i<this._x; i++) 
+            for (int j=0; j<this._y; j++) 
+                m_plus.fillCell(i+1, j+1, this._data[i][j] + m_other.getCell(i+1, j+1));
+        return m_plus;
+    }    
+
+    public Matrix mulScalar(double k) {
+        Matrix m_mulScalar = new Matrix(this._x, this._y); 
+        for (int i=0; i<this._x; i++) 
+            for (int j=0; j<this._y; j++) 
+                m_mulScalar.fillCell(i+1, j+1, this._data[i][j] * k);
+        return m_mulScalar;
+    }    
+
     public static void main(String args[]){
-        Matrix m = new Matrix(4, 2);
-        m.fillY(1, 2.1, 2.2);
-        System.out.println(m.getDruc());
-        IMatrix im = new IMatrix(m);
-        System.out.println(im.getDruc());
+        Matrix m1 = new Matrix(4, 2);
+        Matrix m2 = new Matrix(m1);
+        m1.fillY(1, 2.1, 2.2);
+        Matrix m3 = m1.plus(m2);
+        System.out.println(m1.getDruc());
+        System.out.println(m2.getDruc());
+        System.out.println(m3.getDruc());
     }
 
 };

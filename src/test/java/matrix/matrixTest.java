@@ -160,4 +160,24 @@ public class matrixTest {
         Exception exception = assertThrows(IllegalArgumentException.class,()-> im.fillCell(1, 1, 1.5));
     }     
 
+    // Step 8 ----------------
+    @Test
+    public void step8AddMatrix() {
+        Matrix m1 = new Matrix(4, 2);
+        Matrix m2 = new Matrix(4, 2);
+        m1.fillY(1, 1.1, 1.2);
+        m2.fillY(3, 3.1, 3.2);  
+        Matrix m3 = m1.plus(m2);
+        assertEquals("[ 1.1 0.0 3.1 0.0 ]\n[ 1.2 0.0 3.2 0.0 ]\n",m3.getDruc());
+    }   
+
+    @Test
+    public void step8MulScalar() {
+        Matrix m1 = new Matrix(4, 2);
+        m1.fillY(1, 2.2, 1.2); 
+        Matrix m2 = m1.mulScalar(2.5);
+        assertEquals("[ 5.5 0.0 0.0 0.0 ]\n[ 3.0 0.0 0.0 0.0 ]\n",m2.getDruc());
+    }  
+    
+    
 }
