@@ -36,3 +36,7 @@ Coverage report:
 Jacoco coverage results:
    symbolic link `status_coverage.html`  
 
+VScode add extension `open in browser`
+   in extention settings add "chrome"
+      
+
