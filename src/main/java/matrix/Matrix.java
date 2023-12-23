@@ -369,23 +369,32 @@ public class Matrix {
         return inv;    
     }
 
+    // Step 17 ----------------   
+
+    public void fillRandom(double min, double max) {   
+        for (int i=0; i<this._x; i++) 
+            for (int j=0; j<this._y; j++) 
+                this._data[i][j] = min + Math.random()*(max-min);
+    } 
+
 
     public static void main(String args[]){
         Matrix m = new Matrix(2,4);
         m.fillY(1, 2,4,1,1);
         m.fillY(2, 0,2,0,0);
+        Matrix m2 = new Matrix(4,2);
+        m.fillX(1, 2,4);
+        m.fillX(2, 0,2);        
         IMatrix im = new IMatrix(m);
         System.out.println(m.getDruc());
+        System.out.println(m2.getDruc());
         System.out.println(im.getDruc());
 
 
         Matrix m4 = new Matrix(4,4);
-        m4.fillX(1, 2,4,1,1);
-        m4.fillX(2, 0,2,0,0);
-        m4.fillX(3, 2,1,1,3);
-        m4.fillX(4, 4,0,2,3);        
+        m4.fillRandom(10, 20);       
         //System.out.println(m4.det());          
-        //System.out.println(m4.getDruc()); 
+        System.out.println(m4.getDruc()); 
                
     }
 
