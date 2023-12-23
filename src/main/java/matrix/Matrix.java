@@ -26,7 +26,7 @@ public class Matrix {
         this._data = new double [this._x][this._y];
         for (int i=0; i<this._x; i++) 
             for (int j=0; j<this._y; j++) 
-                this._data[i][j] = m_other.getCell(i+1, j+1);
+                this._data[i][j] = m_other._data[i][j];
     }    
 
     public int getSize() {
@@ -371,30 +371,21 @@ public class Matrix {
 
 
     public static void main(String args[]){
-        Matrix m2 = new Matrix(2,2);
-        m2.fillX(1, 4,7);
-        m2.fillX(2, 2,6);  
-        System.out.println(m2.det());        
-        System.out.println(m2.getDruc());     
-        
-        Matrix m2inv = m2.inverse();
-        System.out.println(m2inv.getDruc());
+        Matrix m = new Matrix(2,4);
+        m.fillY(1, 2,4,1,1);
+        m.fillY(2, 0,2,0,0);
+        IMatrix im = new IMatrix(m);
+        System.out.println(m.getDruc());
+        System.out.println(im.getDruc());
 
-            
-        Matrix m3 = new Matrix(3,3);
-        m3.fillX(1, 5,7,1);
-        m3.fillX(2, -4,1,0);
-        m3.fillX(3, 2,0,3);
-        System.out.println(m3.det());          
-        System.out.println(m3.getDruc());
 
         Matrix m4 = new Matrix(4,4);
         m4.fillX(1, 2,4,1,1);
         m4.fillX(2, 0,2,0,0);
         m4.fillX(3, 2,1,1,3);
         m4.fillX(4, 4,0,2,3);        
-        System.out.println(m4.det());          
-        System.out.println(m4.getDruc()); 
+        //System.out.println(m4.det());          
+        //System.out.println(m4.getDruc()); 
                
     }
 

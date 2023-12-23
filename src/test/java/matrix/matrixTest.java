@@ -155,6 +155,15 @@ public class matrixTest {
     } 
 
     @Test
+    public void step7CopyImmutable() {
+        Matrix m = new Matrix(4,2);
+        m.fillX(1, 2,4,1,1);
+        m.fillX(2, 0,2,0,0);
+        IMatrix im = new IMatrix(m);
+        assertEquals(m.getHash(), im.getHash());
+    }     
+
+    @Test
     public void step7ChangeImmutable() {
         IMatrix im = new IMatrix(4,2);
         Exception exception = assertThrows(IllegalArgumentException.class,()-> im.fillCell(1, 1, 1.5));
